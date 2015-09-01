@@ -86,3 +86,13 @@ func GetApplicationDirectory() string {
 
 	return dir
 }
+
+//
+func RemoveDriveLetter(data string) string {
+	match, _ := regexp.MatchString("^\\w:\\\\", data)
+	if match == true {
+		return data[3:]
+	}
+
+	return data
+}

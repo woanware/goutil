@@ -23,3 +23,25 @@ func GetSeparator(s string) rune {
 
 	return ([]rune(sep))[0]
 }
+
+// Removes the leading/trailing quotes
+func RemoveQuotes(data string) string {
+	data = strings.TrimSpace(data)
+	if len(data) == 0 {
+		return ""
+	}
+
+	if data == "\"\"" {
+		return ""
+	}
+
+	if data[:1] == "\"" {
+		data = data[1:len(data) - 1]
+	}
+
+	if data[len(data)-1:] == "\"" {
+		data = data[:len(data)-1]
+	}
+
+	return data
+}

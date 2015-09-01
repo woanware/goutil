@@ -91,6 +91,16 @@ func DoesByteSliceContain(data []byte, lookup byte) bool {
 	return false
 }
 
+// Generic method to check if string exists in a string slice
+func DoesStringSliceContain(data []string, lookup string) bool {
+	for _, item := range data {
+		if item == lookup {
+			return true
+		}
+	}
+	return false
+}
+
 func (NopCloser) Close() (err error) { return nil }
 
 // Starts another thread to perform OS memory freeing
