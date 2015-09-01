@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 	"runtime/debug"
+	"os"
+	"path/filepath"
 )
 
 // ##### Types #########################################################################################################
@@ -91,6 +93,16 @@ func DoesByteSliceContain(data []byte, lookup byte) bool {
 	return false
 }
 
+// Generic method to check if string exists in a string slice
+func DoesStringSliceContain(data []string, lookup string) bool {
+	for _, item := range data {
+		if item == lookup {
+			return true
+		}
+	}
+	return false
+}
+
 func (NopCloser) Close() (err error) { return nil }
 
 // Starts another thread to perform OS memory freeing
@@ -102,6 +114,16 @@ func FreeMemory(durationMinutes int) {
 			time.Sleep(time.Duration(durationMinutes) * time.Minute)
 		}
 	}()
+}
+
+// Returns the current working directory
+func GetCwd() (string, error){
+	cwdDir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		return "", err
+	}
+
+	return cwdDir, nil
 }
 
 // ##### Internal Methods ##############################################################################################
