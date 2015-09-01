@@ -58,24 +58,6 @@ func DoesDirectoryExist(path string) (bool) {
 	return false
 }
 
-// Ensure that the user supplied path exists as a file
-func DoesFileExist(path string) (bool) {
-	file_info, err := os.Stat(path)
-	if err == nil {
-		if file_info.IsDir() == true {
-			fmt.Println(ansi.Color("The item is not a file", "red"))
-			return false
-		}
-
-		return true
-	} else {
-		fmt.Println(ansi.Color(err.Error(), "red"))
-	}
-
-	if os.IsNotExist(err) { return false}
-	return false
-}
-
 func GetApplicationDirectory() string {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
