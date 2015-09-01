@@ -5,6 +5,7 @@ import (
 	"io"
 	"strings"
 	"time"
+	"runtime/debug"
 )
 
 // ##### Types #########################################################################################################
@@ -98,7 +99,7 @@ func FreeMemory(durationMinutes int) {
 		for {
 			debug.FreeOSMemory()
 			debug.FreeOSMemory()
-			time.Sleep(time.Duration(duration) * time.Minute)
+			time.Sleep(time.Duration(durationMinutes) * time.Minute)
 		}
 	}()
 }

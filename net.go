@@ -6,6 +6,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
+	"encoding/binary"
+	"math/big"
 )
 
 // ##### Methods #############################################################

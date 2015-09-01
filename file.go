@@ -7,6 +7,7 @@ import (
 	"archive/tar"
 	"compress/gzip"
 	"io"
+	"io/ioutil"
 	"fmt"
 	"errors"
 	"crypto/md5"
@@ -223,4 +224,76 @@ func DoesFileExist(path string) (bool) {
 	if os.IsNotExist(err) { return false}
 	return false
 }
+
+// Reads all of the text from a file
+func ReadTextFromFile(path string) (string, error) {
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
+}
+
+//
+func WriteTextToFile(filePath string, data string, append bool) error {
+	var f *os.File
+	var err error
+	if append == true {
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			f, err = os.Create(filePath)
+			if err != nil {
+				return err
+			}
+			f.Close()
+		}
+
+		// open files r and w
+		f, err = os.OpenFile(filePath, os.O_APPEND|os.O_WRONLY,0600)
+		if err != nil {
+			return err
+		}
+	} else {
+		f, err = os.Create(filePath)
+		if err != nil {
+			return err
+		}
+	}
+
+	defer f.Close()
+
+	_, err = f.WriteString(data)
+	return err
+}
+
+//
+func WriteBytesToFile(filePath string, data []byte, append bool) error {
+	var f *os.File
+	var err error
+	if append == true {
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			f, err = os.Create(filePath)
+			if err != nil {
+				return err
+			}
+			f.Close()
+		}
+
+		// open files r and w
+		f, err = os.OpenFile(filePath, os.O_APPEND|os.O_WRONLY,0600)
+		if err != nil {
+			return err
+		}
+	} else {
+		f, err = os.Create(filePath)
+		if err != nil {
+			return err
+		}
+	}
+
+	defer f.Close()
+
+	_, err = f.Write(data)
+	return err
+}
+
 
