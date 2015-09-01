@@ -4,7 +4,7 @@ import (
 	"errors"
 	"io"
 	"strings"
-	"io/ioutil"
+	"time"
 )
 
 // ##### Types #########################################################################################################
@@ -14,6 +14,7 @@ type Tuple struct {
 	value string
 }
 
+//
 type NopCloser struct {
 	io.Reader
 }
@@ -79,15 +80,27 @@ func GetStringSlicePosition(data []string, term string) (int) {
 	return -1
 }
 
+// Generic method to check if string exists in a string slice
+func DoesByteSliceContain(data []byte, lookup byte) bool {
+	for _, item := range data {
+		if item == lookup {
+			return true
+		}
+	}
+	return false
+}
+
 func (NopCloser) Close() (err error) { return nil }
 
-// Reads all of the text from a file
-func ReadTextFromFile(path string) (string, error) {
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return "", err
-	}
-	return string(data), nil
+// Starts another thread to perform OS memory freeing
+func FreeMemory(durationMinutes int) {
+	go func() {
+		for {
+			debug.FreeOSMemory()
+			debug.FreeOSMemory()
+			time.Sleep(time.Duration(duration) * time.Minute)
+		}
+	}()
 }
 
 // ##### Internal Methods ##############################################################################################

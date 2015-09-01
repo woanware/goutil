@@ -58,6 +58,26 @@ func DoesDirectoryExist(path string) (bool) {
 	return false
 }
 
+//
+func IsPathDirectory(path string) (bool, error) {
+	// Determine if the 'input' parameter is a file or directory
+	f, err := os.Open(path)
+	defer f.Close()
+	if err != nil {
+		return false, err
+	}
+	fi, err := f.Stat()
+	if err != nil {
+		return false, err
+	}
+
+	if fi.Mode().IsDir() == true {
+		return true, nil
+	}
+
+	return false, nil
+}
+
 func GetApplicationDirectory() string {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
