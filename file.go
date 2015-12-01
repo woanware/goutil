@@ -226,6 +226,21 @@ func DoesFileExist(path string) (bool) {
 	return false
 }
 
+// Ensure that the user supplied path exists as a file
+func DoesDirExist(path string) (bool) {
+	file_info, err := os.Stat(path)
+	if err == nil {
+		if file_info.IsDir() == true {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	if os.IsNotExist(err) { return false}
+	return false
+}
+
 // Reads all of the text from a file
 func ReadTextFromFile(path string) (string, error) {
 	data, err := ioutil.ReadFile(path)
