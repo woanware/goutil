@@ -226,7 +226,7 @@ func DoesFileExist(path string) (bool) {
 	return false
 }
 
-// Ensure that the user supplied path exists as a file
+// Ensure that the user supplied path exists as a directory
 func DoesDirExist(path string) (bool) {
 	file_info, err := os.Stat(path)
 	if err == nil {
