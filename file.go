@@ -226,7 +226,7 @@ func DoesFileExist(path string) (bool) {
 	return false
 }
 
-// Ensure that the user supplied path exists as a directory
+// Ensure that the user supplied path exists as a file
 func DoesDirExist(path string) (bool) {
 	file_info, err := os.Stat(path)
 	if err == nil {
@@ -327,6 +327,11 @@ func WriteBytesToFile(filePath string, data []byte, append bool) error {
 
 	_, err = f.Write(data)
 	return err
+}
+
+// Reads a file's contents
+func ReadFile(filePath string) ([]byte, error) {
+	return ioutil.ReadFile(filePath)
 }
 
 
