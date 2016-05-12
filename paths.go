@@ -96,3 +96,8 @@ func RemoveDriveLetter(data string) string {
 
 	return data
 }
+
+//
+func GetFileNameWithoutExtension(file string) string {
+	return strings.TrimSuffix(filepath.Base(file), filepath.Ext(filepath.Base(file)))
+}
