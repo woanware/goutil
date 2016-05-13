@@ -36,6 +36,15 @@ func ConvertStringToInt64(data string) int64 {
 	return ret
 }
 
+// Converts a string to an int
+func ConvertStringToInt(data string) int {
+	ret, err := strconv.ParseInt(data, 10, 32)
+	if err != nil {
+		return -1
+	}
+	return int(ret)
+}
+
 //
 func ParseBoolean(data string, match string, retVal bool) bool {
 	data = RemoveQuotes(data)
@@ -93,4 +102,13 @@ func ParseTimestamp(layout, data string) time.Time {
 	}
 
 	return parsedTimestamp
+}
+
+//
+func IsNumber(data string) bool {
+	if _, err := strconv.Atoi(data); err == nil {
+		return true
+	}
+
+	return false
 }
