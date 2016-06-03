@@ -101,3 +101,15 @@ func RemoveDriveLetter(data string) string {
 func GetFileNameWithoutExtension(file string) string {
 	return strings.TrimSuffix(filepath.Base(file), filepath.Ext(filepath.Base(file)))
 }
+
+// Extract the file name and dir name from the full path
+func SplitPath(filePath string) (fileName string, fileDirectory string) {
+
+	lastIndex := strings.LastIndex(filePath, "\\")
+	if lastIndex > -1 {
+		fileName = filePath[lastIndex + 1:len(filePath)]
+		fileDirectory = filePath[:lastIndex]
+	}
+
+	return fileName, fileDirectory
+}
