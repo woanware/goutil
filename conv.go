@@ -12,24 +12,29 @@ const MIN_TIME = "2006-01-02T15:04:05Z07:00"
 
 // ##### Methods #############################################################
 
-// Converts an Int64 to a string
 func ConvertInt64ToString(data int64) string {
 	return strconv.FormatInt(data, 10 )
 }
 
-// Converts an Int64 to a string
+// Converts an Int to a string
 func ConvertIntToString(data int) string {
 	return strconv.FormatInt(int64(data), 10 )
 }
 
-// Converts an Int64 to a string
+// Converts an UInt16 to a string
 func ConvertUInt16ToString(data uint16) string {
+	return strconv.FormatInt(int64(data), 10 )
+}
+
+
+// Converts an Int16 to a string
+func ConvertInt16ToString(data int16) string {
 	return strconv.FormatInt(int64(data), 10 )
 }
 
 // Converts a string to an int64
 func ConvertStringToInt64(data string) int64 {
-	ret, err := strconv.ParseInt(data, 0, 64)
+	ret, err := strconv.ParseInt(data, 10, 64)
 	if err != nil {
 		return -1
 	}
