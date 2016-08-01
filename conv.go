@@ -50,6 +50,25 @@ func ConvertStringToInt(data string) int {
 	return int(ret)
 }
 
+// Converts a string to an in32
+func ConvertStringToInt32(data string) int32 {
+	ret, err := strconv.ParseInt(data, 0, 32)
+	if err != nil {
+		return -1
+	}
+	return int32(ret)
+}
+
+//
+func ParseBool(data string) bool {
+	tmpBool, err := strconv.ParseBool(data)
+	if err != nil {
+		return false
+	}
+
+	return tmpBool
+}
+
 //
 func ParseBoolean(data string, match string, retVal bool) bool {
 	data = RemoveQuotes(data)
