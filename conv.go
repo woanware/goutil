@@ -27,7 +27,7 @@ func ConvertUInt16ToString(data uint16) string {
 }
 
 // Converts an Int64 to a string
-func convertInt8ToString(data int8) string {
+func ConvertInt8ToString(data int8) string {
 	return strconv.FormatInt(int64(data), 10)
 }
 
