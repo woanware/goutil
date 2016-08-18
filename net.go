@@ -33,6 +33,16 @@ func IntToIpLittleEndian(ipAddr uint32) net.IP {
 	return net.IP(ipByte)
 }
 
+// Converts a string representation of an IP address to an integer
+func InetAton(ipAddr string) (uint32, error) {
+	ip := net.ParseIP(ipAddr)
+	if ip == nil {
+		return 0, errors.New("Wrong IP address format")
+	}
+	ip = ip.To4()
+	return binary.BigEndian.Uint32(ip), nil
+}
+
 /* RFC1918: IPV4 Private Networks (10.0.0.0/8, 192.168.0.0./16, 172.16.0.0/12)
 Should be used by initialising the variables below and then passing into the method to improve performance
 
