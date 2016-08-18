@@ -3,6 +3,9 @@ package goutil
 import (
 	"strings"
 	"fmt"
+	"crypto/md5"
+	"encoding/hex"
+	"io"
 )
 
 // Emulates the python partition function
