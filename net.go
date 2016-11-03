@@ -35,11 +35,16 @@ func IntToIpLittleEndian(ipAddr uint32) net.IP {
 
 // Converts a string representation of an IP address to an integer
 func InetAton(ipAddr string) (uint32, error) {
+
 	ip := net.ParseIP(ipAddr)
 	if ip == nil {
 		return 0, errors.New("Wrong IP address format")
 	}
-	ip = ip.To4()
+
+     	if ip.To4() == nil {
+        	return 0, errors.New("Wrong IP address format (IPv6")
+       	}
+
 	return binary.BigEndian.Uint32(ip), nil
 }
 
