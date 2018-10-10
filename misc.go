@@ -2,6 +2,7 @@ package goutil
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -131,6 +132,40 @@ func GetCwd() (string, error) {
 	}
 
 	return cwdDir, nil
+}
+
+// Provides a Yes/No prompt. Return true for "YES", false for "NO"
+func GetYesNoPrompt(defaultYes bool) (bool, error) {
+
+	var s string
+
+	if defaultYes == true {
+		fmt.Printf(`[Y] Yes  [N] No  (default is "Y"): `)
+	} else {
+		fmt.Printf(`[Y] Yes  [N] No  (default is "N"): `)
+	}
+
+	_, err := fmt.Scan(&s)
+	if err != nil {
+		return nil, false
+	}
+
+	s = strings.TrimSpace(s)
+	s = strings.ToLower(s)
+
+	if defaultYes == true {
+		if s == "n" || s == "no" {
+			return false, nil
+		}
+
+		return true, nil
+	}
+
+	if s == "y" || s == "yes" {
+		return true, nil
+	}
+
+	return false, nil
 }
 
 // ##### Internal Methods ##############################################################################################
