@@ -140,14 +140,14 @@ func GetYesNoPrompt(defaultYes bool) (bool, error) {
 	var s string
 
 	if defaultYes == true {
-		fmt.Printf(`[Y] Yes  [N] No  (default is "Y"): `)
+		fmt.Printf("\n[Y] Yes  [N] No  (default is \"Y\"): ")
 	} else {
-		fmt.Printf(`[Y] Yes  [N] No  (default is "N"): `)
+		fmt.Printf("\n[Y] Yes  [N] No  (default is \"N\"): ")
 	}
 
-	_, err := fmt.Scan(&s)
+	_, err := fmt.Scanln(&s)
 	if err != nil {
-		return nil, false
+		return false, nil
 	}
 
 	s = strings.TrimSpace(s)
