@@ -10,74 +10,73 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 )
 
-//
-func Unzip(src, dest string) error {
+// //
+// func Unzip(src, dest string) error {
 
-	r, err := zip.OpenReader(src)
-	if err != nil {
-		return err
-	}
-	defer func() error {
-		if err := r.Close(); err != nil {
-			return fmt.Errorf("Error unzipping: (%s) %v", src, err)
-		}
+// 	r, err := zip.OpenReader(src)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer func() error {
+// 		if err := r.Close(); err != nil {
+// 			return fmt.Errorf("Error unzipping: (%s) %v", src, err)
+// 		}
 
-		return nil
-	}()
+// 		return nil
+// 	}()
 
-	os.MkdirAll(dest, 0755)
+// 	os.MkdirAll(dest, 0755)
 
-	// Closure to address file descriptors issue with all the deferred .Close() methods
-	extractAndWriteFile := func(f *zip.File) error {
-		rc, err := f.Open()
-		if err != nil {
-			return err
-		}
-		defer func() error {
-			if err := rc.Close(); err != nil {
-				return fmt.Errorf("Error unzipping: (%s) %v", src, err)
-			}
+// 	// Closure to address file descriptors issue with all the deferred .Close() methods
+// 	extractAndWriteFile := func(f *zip.File) error {
+// 		rc, err := f.Open()
+// 		if err != nil {
+// 			return err
+// 		}
+// 		defer func() error {
+// 			if err := rc.Close(); err != nil {
+// 				return fmt.Errorf("Error unzipping: (%s) %v", src, err)
+// 			}
 
-			return nil
-		}()
+// 			return nil
+// 		}()
 
-		path := filepath.Join(dest, f.Name)
+// 		path := filepath.Join(dest, f.Name)
 
-		if f.FileInfo().IsDir() {
-			os.MkdirAll(path, f.Mode())
-		} else {
-			f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
-			if err != nil {
-				return err
-			}
-			defer func() error {
-				if err := f.Close(); err != nil {
-					return fmt.Errorf("Error unzipping: (%s) %v", src, err)
-				}
+// 		if f.FileInfo().IsDir() {
+// 			os.MkdirAll(path, f.Mode())
+// 		} else {
+// 			f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
+// 			if err != nil {
+// 				return err
+// 			}
+// 			defer func() error {
+// 				if err := f.Close(); err != nil {
+// 					return fmt.Errorf("Error unzipping: (%s) %v", src, err)
+// 				}
 
-				return nil
-			}()
+// 				return nil
+// 			}()
 
-			_, err = io.Copy(f, rc)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-	}
+// 			_, err = io.Copy(f, rc)
+// 			if err != nil {
+// 				return err
+// 			}
+// 		}
+// 		return nil
+// 	}
 
-	for _, f := range r.File {
-		err := extractAndWriteFile(f)
-		if err != nil {
-			return err
-		}
-	}
+// 	for _, f := range r.File {
+// 		err := extractAndWriteFile(f)
+// 		if err != nil {
+// 			return err
+// 		}
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
 
 //
 func UnzipFile(src, dest, fileName string) error {
